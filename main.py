@@ -36,8 +36,8 @@ class FSMaddress_update(StatesGroup):
 class FSMpayout(StatesGroup):
     payout = State()
 
-token = '5580860360:AAFs15T_JOIlv6dE9xDG-KgZMH8RhAXx8OQ'
-#token = '5136783035:AAFxDeRpBQhLBsKBHfg0DoYhgQIKeTarQzo'
+token = '*****************'
+
 
 bot = Bot(token)
 dp = Dispatcher(bot, storage=MemoryStorage())
@@ -75,8 +75,6 @@ async def admin_panel(message):
 
 /approve 2022-08-18 16:04:25.525285   (Нужно ввести дату из таблицы /payouts)
 
-/add_podpiska 4 https://t.me/+5x10t7E_bDBlZDFi -1001767856337 50 (id, ссылка, id канала, баланс) 
-
 /podpiska - все объявления по подписке
 
 
@@ -87,7 +85,7 @@ async def admin_panel(message):
 
 @dp.message_handler(commands=["payouts"])
 async def payouts_admin(message):
-    if message.from_user.id == 891705090 or message.from_user.id == 397448482:
+    if message.from_user.id == **** or message.from_user.id == *****:
         connector = sqlite3.connect('payouts.db')
         cursor = connector.cursor()
         cursor.execute("SELECT user_id,address,price,date FROM payouts where good = ? ", ("В процессе",))
@@ -109,7 +107,7 @@ async def payouts_admin(message):
 
 @dp.message_handler(commands=["approve"])
 async def approve(message):
-    if message.from_user.id == 891705090 or message.from_user.id == 397448482:
+    if message.from_user.id == ****** or message.from_user.id == ******:
         try:
             date = message.text.split("/approve ")[1]
             connector = sqlite3.connect('payouts.db')
@@ -123,7 +121,7 @@ async def approve(message):
 
 @dp.message_handler(commands=["add_podpiska"])
 async def approve(message):
-    if message.from_user.id == 891705090 or message.from_user.id == 397448482:
+    if message.from_user.id == ***** or message.from_user.id == *****:
         text = message.text.split("/add_podpiska ")[1]
         ad_id = text.split()[0]
         channel = text.split()[1]
@@ -137,7 +135,7 @@ async def approve(message):
 
 @dp.message_handler(commands=["podpiska"])
 async def podpiska_admin(message):
-    if message.from_user.id == 891705090 or message.from_user.id == 397448482:
+    if message.from_user.id == ******090 or message.from_user.id == ******:
         connector = sqlite3.connect('advertisers.db')
         cursor = connector.cursor()
         cursor.execute("Select * from podpiska")
@@ -274,7 +272,7 @@ async def verification(message,state: FSMContext):
             cursor.execute("UPDATE webmasters SET address = ? WHERE user_id = ?", (message.text,message.from_user.id))
             connector.commit()
             await bot.send_message(message.from_user.id,f"""Отправьте 0,01 TON на адресс:
-`EQD4K9ZB7Vl32EmSYb6IsTgOLgtpNHrevU5Rb9uwNyl6qwYA`
+`*****************`
 
 А затем нажмите на 'Проверить'""", reply_markup= markup_proverka,parse_mode="MarkDown")
             await state.finish()
@@ -306,31 +304,16 @@ async def proverka (message):
 
 Теперь можете пользоваться сервисом""", reply_markup=markup_webmaster_menu)
         headers = {
-            'authority': 'api.getgems.io',
-            'accept': 'application/json, text/plain, */*',
-            'accept-language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
-            # Already added when you pass json=
-            # 'content-type': 'application/json',
-            'origin': 'https://tonscan.org',
-            'referer': 'https://tonscan.org/',
-            'sec-ch-ua': '"Chromium";v="104", " Not A;Brand";v="99", "Google Chrome";v="104"',
-            'sec-ch-ua-mobile': '?0',
-            'sec-ch-ua-platform': '"Windows"',
-            'sec-fetch-dest': 'empty',
-            'sec-fetch-mode': 'cors',
-            'sec-fetch-site': 'cross-site',
-            'user-agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
+            '***********************36',
         }
 
         json_data = {
-            'query': '\nquery NftItemConnection($ownerAddress: String!, $first: Int!, $after: String) {\n  nftItemsByOwner(ownerAddress: $ownerAddress, first: $first, after: $after) {\n    cursor\n    items {\n      id\n      name\n      address\n      index\n      kind\n      image: content {\n        type: __typename\n        ... on NftContentImage {\n          originalUrl\n          thumb: image {\n            sized(width: 480, height: 480)\n          }\n        }\n        ... on NftContentLottie {\n          preview: image {\n            sized(width: 480, height: 480)\n          }\n        }\n      }\n      collection {\n        address\n        name\n        isVerified\n      }\n      sale {\n        ... on NftSaleFixPrice {\n          fullPrice\n        }\n      }\n    }\n  }\n}',
-            'variables': {
+            '*******************
                 'ownerAddress': f'{str(address[0])}',
                 'first': 100,
             },
             'headers': {
-                'Content-Type': 'application/json',
-                'Access-Control-Request-Method': 'POST',
+                '****************** 'POST',
             },
         }
         try:
@@ -360,7 +343,7 @@ async def proverka (message):
         await bot.send_message(message.from_user.id, f"""Мы не видим вашей транзакции. Подождите 30 секунд либо проверьте правильность кошелька куда вы отправили 0.2 TON.
 Кошелек должен быть:
 
-`EQD4K9ZB7Vl32EmSYb6IsTgOLgtpNHrevU5Rb9uwNyl6qwYA`""", reply_markup=markup_proverka,parse_mode="MarkDown", disable_web_page_preview=True)
+`E****************`""", reply_markup=markup_proverka,parse_mode="MarkDown", disable_web_page_preview=True)
 
 
 
@@ -757,7 +740,7 @@ async def verification(message,state: FSMContext):
             cursor.execute("UPDATE advertisers SET address = ? WHERE user_id = ?", (message.text,message.from_user.id))
             connector.commit()
             await bot.send_message(message.from_user.id,f"""Отправьте 0,01 TON на адресс:
-`EQD4K9ZB7Vl32EmSYb6IsTgOLgtpNHrevU5Rb9uwNyl6qwYA`
+`************************`
 
 А затем нажмите на 'Проверить'""", reply_markup= markup_proverka_advert,parse_mode="MarkDown")
             await state.finish()
@@ -799,7 +782,7 @@ async def proverka_advert(message):
         await bot.send_message(message.from_user.id, f"""Мы не видим вашей транзакции. Подождите 30 секунд либо проверьте правильность кошелька куда вы отправили 0.2 TON.
 Кошелек должен быть:
 
-`EQD4K9ZB7Vl32EmSYb6IsTgOLgtpNHrevU5Rb9uwNyl6qwYA`""", reply_markup=markup_proverka_advert,parse_mode="MarkDown", disable_web_page_preview=True)
+`****************************`""", reply_markup=markup_proverka_advert,parse_mode="MarkDown", disable_web_page_preview=True)
 
 
 @dp.message_handler(state = FSMaddress_update_advert.address_update_advert)
@@ -837,7 +820,7 @@ async def popolnit_balance(message):
     await bot.send_message(message.from_user.id,
                            f"""Оплата производится на кошелёк:
                            
-`EQD4K9ZB7Vl32EmSYb6IsTgOLgtpNHrevU5Rb9uwNyl6qwYA`
+`*********************`
 
 Для этой транзакции комментарий:
 
@@ -867,7 +850,7 @@ async def proverka_popoln(call: CallbackQuery):
     else:
         await bot.delete_message(call.from_user.id, call.message.message_id)
         await bot.send_message(call.from_user.id, f"""Мы не видим вашей транзакции. Подождите 30 секунд либо проверьте правильность кошелька и комментария.
-Кошелек должен быть:  `EQD4K9ZB7Vl32EmSYb6IsTgOLgtpNHrevU5Rb9uwNyl6qwYA`
+Кошелек должен быть:  `************************`
 
 Комментарий: `{comment[0]}`""", reply_markup=markup_otmena_advert, parse_mode="MarkDown",
                                disable_web_page_preview=True)
